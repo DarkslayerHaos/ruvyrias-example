@@ -42,7 +42,6 @@ PREFIX=.
 | `.skip`                         | Skip to the next track in the queue.                                  |
 | `.stop`                         | Stop the music and clear the queue.                                   |
 | `.queue`                        | Display the current music queue.                                      |
-| `.repeat`                       | Show information about the currently playing track.                   |
 | `.playprevious`                 | Play the previously played track.                                     |
 | `.loop`                         | Toggle loop mode for the entire queue.                                |
 | `.bassboost`                    | Enhance the bass of the music.                                        |
