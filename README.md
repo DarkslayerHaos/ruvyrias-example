@@ -23,7 +23,7 @@ PREFIX=.
     name: 'main',
     host: 'localhost',
     port: 80,
-    password: 'youshallnotpass,
+    password: 'youshallnotpass',
     secure: false,
 }
 ```
