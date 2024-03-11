@@ -36,7 +36,7 @@ PREFIX=.
 
 | Command                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
-| `.play <link | song-name>`      | Play a song by providing a link or the name of the song.              |
+| `.play <link or song-name>`      | Play a song by providing a link or the name of the song.              |
 | `.pause`                        | Pause the currently playing track.                                    |
 | `.resume`                       | Resume playback.                                                      |
 | `.skip`                         | Skip to the next track in the queue.                                  |
