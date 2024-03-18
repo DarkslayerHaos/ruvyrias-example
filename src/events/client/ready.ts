@@ -1,6 +1,6 @@
 import { ActivityType } from 'discord.js';
-import { BaseClient } from '../structures/BaseClient';
-import { BaseEvent } from '../structures/BaseEvent';
+import { BaseClient } from '../../structures/BaseClient';
+import { BaseEvent } from '../../structures/BaseEvent';
 
 export default class Ready extends BaseEvent {
     public execute(client: BaseClient) {

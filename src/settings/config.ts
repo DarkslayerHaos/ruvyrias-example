@@ -1,6 +1,23 @@
-import { NodeGroup } from "ruvyrias";
+import { ClientOptions, GatewayIntentBits } from 'discord.js';
+import { NodeGroup, RuvyriasOptions, Deezer } from 'ruvyrias';
+const deezer = new Deezer();
 
-// Array of Lavalink node configurations.
+/**
+ * Options for configuring the Discord bot client.
+ */
+export const options: ClientOptions = {
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates
+    ],
+    allowedMentions: { parse: ['users'] }
+};
+
+/**
+ * Configuration for Lavalink nodes.
+ */
 export const nodes: NodeGroup[] = [
     {
         name: 'main',
@@ -10,3 +27,14 @@ export const nodes: NodeGroup[] = [
         secure: false,
     },
 ];
+
+/**
+ * Options for Ruvyrias, the music client.
+ */
+export const data: RuvyriasOptions = {
+    library: 'discord.js',
+    defaultPlatform: 'ytsearch',
+    plugins: [deezer],
+    reconnectTries: Infinity,
+    reconnectTimeout: 1000 * 10,
+};

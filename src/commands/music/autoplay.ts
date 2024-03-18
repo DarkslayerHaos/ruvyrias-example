@@ -3,10 +3,10 @@ import { BaseClient } from '../../structures/BaseClient';
 import { BaseCommand } from '../../structures/BaseCommand';
 import { Player } from 'ruvyrias';
 
-export default class Pause extends BaseCommand {
+export default class AutoPlay extends BaseCommand {
     private constructor() {
         super({
-            name: 'pause',
+            name: 'autoplay',
             aliases: []
         });
     }
@@ -16,11 +16,15 @@ export default class Pause extends BaseCommand {
         if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
         if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
 
-        if (player.isPaused) {
-            return message.reply({ embeds: [{ description: `❌ The music is already paused.`, color: Colors.Red }] });
-        }
+        if (!player.isAutoPlay) {
+            player.isAutoPlay = true;
 
-        player.pause(true);
-        message.reply({ embeds: [{ description: `✅ Music paused.`, color: Colors.Green }] });
+            await player.autoplay(player);
+            message.reply({ embeds: [{ description: `✅ Autoplay activated, new tracks will play automatically!`, color: Colors.Green }] });
+        } else {
+            player.isAutoPlay = false;
+
+            message.reply({ embeds: [{ description: `✅ Autoplay deactivated, tracks will *not* play automatically!`, color: Colors.Green }] });
+        }
     }
 }
