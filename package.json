@@ -1,5 +1,5 @@
 {
-  "name": "music-bot",
+  "name": "ruvyrias-example",
   "version": "2.1.0",
   "description": "A music bot with command and event handling, using Ruvyrias and Lavalink | Discord.js V14.",
   "main": "dist/index.js",
