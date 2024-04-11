@@ -14,7 +14,7 @@ export default class MessageCreate extends BaseEvent {
         if (!exec) return;
         try {
             await message.channel.sendTyping();
-            exec.execute(client, message, player, args);
+            exec.execute(client, message, player!, args);
         } catch (e) {
             console.log(`An error has ocurred at command ${command}`);
             console.error((e as Error).stack);

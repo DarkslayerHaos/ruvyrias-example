@@ -1,4 +1,4 @@
-import { RuvyriasEvents } from 'ruvyrias/dist/src/Player/Player';
+import { RuvyriasEvents } from 'ruvyrias/dist/src/Ruvyrias';
 import { BaseClient } from './BaseClient';
 import { readdirSync } from 'fs';
 

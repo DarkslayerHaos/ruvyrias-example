@@ -7,7 +7,7 @@ export default class QueueEnd extends BaseEvent {
     public async execute(client: BaseClient, player: Player): Promise<void> {
         player.stop();
 
-        const channel = client.channels.cache.get(player.textChannel) as TextChannel;
+        const channel = client.channels.cache.get(player.textChannel!) as TextChannel;
         channel.send({ embeds: [{ description: `✅ End of the playlist, leaving the voice channel.`, color: Colors.Green }] });
     }
 }

@@ -1,4 +1,4 @@
-import { Message, VoiceState, Colors } from 'discord.js';
+import { Message, Colors } from 'discord.js';
 import { BaseClient } from '../../structures/BaseClient';
 import { BaseCommand } from '../../structures/BaseCommand';
 import { Player } from 'ruvyrias';

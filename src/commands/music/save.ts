@@ -16,7 +16,7 @@ export default class Save extends BaseCommand {
         if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
         if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
 
-        message.author.send({ content: `${player.currentTrack.info.uri}` }).catch(() => {
+        message.author.send({ content: `${player.currentTrack!.info.uri}` }).catch(() => {
             message.reply({ embeds: [{ description: `❌ Your DMs need to be open!`, color: Colors.Red }] });
         });
 

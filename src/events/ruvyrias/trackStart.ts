@@ -12,13 +12,13 @@ export default class TrackStart extends BaseEvent {
 
         const formatted = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
 
-        const channel = client.channels.cache.get(player.textChannel) as TextChannel;
+        const channel = client.channels.cache.get(player.textChannel!) as TextChannel;
         channel.send({
             embeds:
                 [{
                     title: `✅ Playing now:`,
                     description: `[${track.info.title}](${track.info.uri})
-                    Duration: [\`${player.currentTrack.info.isStream ? 'LIVE' : formatted}\`]\n
+                    Duration: [\`${player.currentTrack!.info.isStream ? 'LIVE' : formatted}\`]\n
                     Requester: [${(track.info.requester).toString()}]`,
                     thumbnail: { url: track.info?.artworkUrl as string },
                     color: Colors.Green

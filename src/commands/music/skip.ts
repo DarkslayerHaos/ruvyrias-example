@@ -16,7 +16,7 @@ export default class Skip extends BaseCommand {
         if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
         if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
 
-        const { title, uri } = player.currentTrack.info;
+        const { title, uri } = player.currentTrack!.info;
         player.skip();
 
         message.reply({ embeds: [{ description: `✅ [${title}](${uri}) skipped.`, color: Colors.Green }] });

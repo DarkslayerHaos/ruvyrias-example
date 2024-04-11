@@ -23,7 +23,7 @@ export default class Skip extends BaseCommand {
         player.queue.unshift(player.previousTrack);
         player.skip();
 
-        const { title, uri } = player.currentTrack.info
+        const { title, uri } = player.currentTrack!.info
 
         message.reply({ embeds: [{ description: `🎶 [${title}](${uri}) playing again.`, color: Colors.Green }] });
     }
