@@ -25,6 +25,7 @@ export const nodes: NodeGroup[] = [
         port: 80,
         password: 'youshallnotpass',
         secure: false,
+        resume: true
     },
 ];
 
@@ -35,6 +36,7 @@ export const data: RuvyriasOptions = {
     library: 'discord.js',
     defaultPlatform: 'ytsearch',
     plugins: [deezer],
+    autoResume: true,
     reconnectTries: Infinity,
     reconnectTimeout: 1000 * 10,
 };

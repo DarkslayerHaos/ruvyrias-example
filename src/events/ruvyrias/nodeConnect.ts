@@ -4,6 +4,6 @@ import { BaseEvent } from '../../structures/BaseEvent';
 
 export default class NodeConnect extends BaseEvent {
     public execute(client: BaseClient, node: Node): void {
-        console.log(`[+] Lavalink ${node.name} successfully connected.`)
+        console.log(`[+] Lavalink ${node.options.name} successfully connected.`)
     }
 }

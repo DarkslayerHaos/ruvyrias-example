@@ -13,6 +13,6 @@ export default class Ping extends BaseCommand {
         if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
         if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
 
-        (message.channel as TextChannel).send({ embeds: [{ description: `📡┃Latency: **${client.ws.ping}**ms.`, color: Colors.Green }] });
+        message.channel.send({ embeds: [{ description: `📡┃Latency: **${client.ws.ping}**ms.`, color: Colors.Green }] });
     }
 }
