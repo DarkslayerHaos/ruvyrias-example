@@ -1,6 +1,6 @@
 # 🎧 Music Bot — Example with Ruvyrias
 
-> This example is built entirely with **Slash Commands**, using an **individual event handler system** for both [Ruvyrias](https://www.npmjs.com/package/ruvyrias) and [discord.js]. It also includes a **command handler** to keep everything modular and clean.  
+> This example is built entirely with **Slash Commands**, using an **individual event handler system** for both [Ruvyrias](https://www.npmjs.com/package/ruvyrias) and [Discord.js](https://www.npmjs.com/package/discord.js). It also includes a **command handler** to keep everything modular and clean.  
 > Powered by the latest version of **Ruvyrias**, the Lavalink library which this bot is designed to demonstrate.
 
 ## 🚀 Setting Up The Environment
