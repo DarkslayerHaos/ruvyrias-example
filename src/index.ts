@@ -1,3 +1,3 @@
-import('../src/structures/BaseClient').then(client => new client.BaseClient().connect());
+import('./structures/CustomClient').then(client => new client.CustomClient().connect());
 
 process.on('unhandledRejection', error => { console.log(error); });

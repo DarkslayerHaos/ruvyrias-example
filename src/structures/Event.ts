@@ -1,5 +1,4 @@
-import { Client } from 'discord.js';
-import { BaseClient } from './BaseClient';
+import { CustomClient } from './CustomClient';
 
 /**
  * Abstract class for creating base events.
@@ -11,5 +10,5 @@ export abstract class BaseEvent {
      * @param props Additional properties.
      * @param props2 Additional properties.
      */
-    public abstract execute(client: Client | BaseClient, props?: any, props2?: any): void
+    public abstract execute(client: CustomClient, props?: any, props2?: any): void
 }

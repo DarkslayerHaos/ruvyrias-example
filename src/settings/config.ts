@@ -1,6 +1,5 @@
+import { NodeGroup, RuvyriasOptions, Plugin, LibrariesType, PlatformsType } from 'ruvyrias';
 import { ClientOptions, GatewayIntentBits } from 'discord.js';
-import { NodeGroup, RuvyriasOptions, Deezer } from 'ruvyrias';
-const deezer = new Deezer();
 
 /**
  * Options for configuring the Discord bot client.
@@ -23,20 +22,19 @@ export const nodes: NodeGroup[] = [
         name: 'main',
         host: 'localhost',
         port: 80,
-        password: 'youshallnotpass',
+        auth: 'youshallnotpass',
         secure: false,
-        resume: true
-    },
+    }
 ];
 
 /**
  * Options for Ruvyrias, the music client.
  */
 export const data: RuvyriasOptions = {
-    library: 'discord.js',
-    defaultPlatform: 'ytsearch',
-    plugins: [deezer],
+    library: LibrariesType.DiscordJS,
+    defaultPlatform: PlatformsType.YtSearch,
+    plugins: [new Plugin.Deezer()],
     autoResume: true,
-    reconnectTries: Infinity,
-    reconnectTimeout: 1000 * 10,
+    retryAmount: Infinity,
+    retryDelay: 1000 * 10,
 };

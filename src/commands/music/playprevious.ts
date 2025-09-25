@@ -1,30 +1,34 @@
-import { Message, Colors } from 'discord.js';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseCommand } from '../../structures/BaseCommand';
+import { Message, Colors, ChatInputCommandInteraction } from 'discord.js';
+import { CustomClient } from '../../structures/CustomClient';
+import { Command } from '../../structures/Command';
 import { Player } from 'ruvyrias';
 
-export default class Skip extends BaseCommand {
+export default class Skip extends Command {
     private constructor() {
         super({
             name: 'playprevious',
-            aliases: ['previous']
+            description: '⏮️ | Plays the previous song once more.',
+            category: 'music',
+            permissions: {
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['SendMessages', 'ViewChannel'],
+            }
         });
     }
 
-    public async execute(client: BaseClient, message: Message, player: Player): Promise<Message | void> {
-        if (!this.checkPlayerState(message, player)) return;
-        if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
-        if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
+    public async execute(client: CustomClient, interaction: ChatInputCommandInteraction, player: Player): Promise<Message | void> {
+        if (!await this.checkPermissions(interaction)) return;
+        if (!await this.checkPlayerState(interaction, player)) return;
 
         if (!player.previousTrack) {
-            return message.reply({ embeds: [{ description: `❌ No previously played music.`, color: Colors.Red }] });
+            return await interaction.editReply({ embeds: [{ description: `❌ No previously played music.`, color: Colors.Red }] });
         }
 
         player.queue.unshift(player.previousTrack);
-        player.skip();
+        await player.skip();
 
         const { title, uri } = player.currentTrack!.info
 
-        message.reply({ embeds: [{ description: `🎶 [${title}](${uri}) playing again.`, color: Colors.Green }] });
+        await interaction.editReply({ embeds: [{ description: `🎶 [${title}](${uri}) playing again.`, color: Colors.Green }] });
     }
 }

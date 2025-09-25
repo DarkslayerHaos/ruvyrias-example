@@ -1,28 +1,40 @@
-import { Message, Colors } from 'discord.js';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseCommand } from '../../structures/BaseCommand';
+import { Message, Colors, ChatInputCommandInteraction } from 'discord.js';
+import { CustomClient } from '../../structures/CustomClient';
+import { Command } from '../../structures/Command';
 import { Player } from 'ruvyrias';
 
-export default class Volume extends BaseCommand {
+export default class Volume extends Command {
     private constructor() {
         super({
             name: 'volume',
-            aliases: ['vol']
+            description: '🔊 | Adjusts the music volume.',
+            category: 'music',
+            options: [
+                {
+                    name: 'value',
+                    description: '🔌 | Enter a value between 1 and 300.',
+                    type: 3,
+                    required: true
+                }
+            ],
+            permissions: {
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['SendMessages', 'ViewChannel'],
+            }
         });
     }
 
-    public async execute(client: BaseClient, message: Message, player: Player, args: string[]): Promise<Message | void> {
-        if (!this.checkPlayerState(message, player)) return;
-        if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
-        if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
+    public async execute(client: CustomClient, interaction: ChatInputCommandInteraction, player: Player): Promise<Message | void> {
+        if (!await this.checkPermissions(interaction)) return;
+        if (!await this.checkPlayerState(interaction, player)) return;
+        const volume = Number(interaction.options.getString('value'));
 
-        const volume = Number(args[0]);
         if (!volume || volume < 1 || volume > 1000) {
-            message.reply({ embeds: [{ description: `❌ The volume needs to be between 1 and 1000.`, color: Colors.Red }] });
+            await interaction.editReply({ embeds: [{ description: `❌ The volume needs to be between 1 and 1000.`, color: Colors.Red }] });
             return;
         }
 
-        player.setVolume(volume);
-        message.reply({ embeds: [{ description: `✅ Volume adjusted to \`${volume}\`.`, color: Colors.Green }] });
+        await player.setVolume(volume);
+        await interaction.editReply({ embeds: [{ description: `✅ Volume adjusted to \`${volume}\`.`, color: Colors.Green }] });
     }
 }

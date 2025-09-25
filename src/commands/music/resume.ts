@@ -1,27 +1,30 @@
-import { Message, Colors } from 'discord.js';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseCommand } from '../../structures/BaseCommand';
+import { Message, Colors, ChatInputCommandInteraction } from 'discord.js';
+import { CustomClient } from '../../structures/CustomClient';
+import { Command } from '../../structures/Command';
 import { Player } from 'ruvyrias';
 
-export default class Resume extends BaseCommand {
+export default class Resume extends Command {
     private constructor() {
         super({
             name: 'resume',
-            aliases: []
+            description: '▶️ | Resumes the current music.',
+            category: 'music',
+            permissions: {
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['SendMessages', 'ViewChannel'],
+            }
         });
     }
 
-    public async execute(client: BaseClient, message: Message, player: Player): Promise<Message | void> {
-        if (!this.checkPlayerState(message, player)) return;
-        if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
-        if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
+    public async execute(client: CustomClient, interaction: ChatInputCommandInteraction, player: Player): Promise<Message | void> {
+        if (!await this.checkPermissions(interaction)) return;
+        if (!await this.checkPlayerState(interaction, player)) return;
 
         if (!player.isPaused) {
-            message.reply({ embeds: [{ description: `❌ The player has already resumed the music.`, color: Colors.Red }] });
-            return;
+            return await interaction.editReply({ embeds: [{ description: `❌ The music is not paused.`, color: Colors.Red }] });
         }
 
-        player.pause(false);
-        message.reply({ embeds: [{ description: `🎶 The music has been resumed.`, color: Colors.Blue }] });
+        await player.resume();
+        await interaction.editReply({ embeds: [{ description: `✅ Music resumed.`, color: Colors.Green }] });
     }
 }

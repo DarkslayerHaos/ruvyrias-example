@@ -2,11 +2,8 @@ import { CustomClient } from '../../structures/CustomClient';
 import { BaseEvent } from '../../structures/Event';
 import { Player, Track } from 'ruvyrias';
 
-export default class TrackEnd extends BaseEvent {
+export default class QueueEnd extends BaseEvent {
     public async execute(client: CustomClient, player: Player, track: Track): Promise<void> {
-        // Just running autoplay at this time
-        if (player.isAutoPlay) {
-            await player.autoplay(player);
-        }
+        client.logger.info(`Added the track ${track.info.title} to guild ${player.guildId}`);
     }
 }

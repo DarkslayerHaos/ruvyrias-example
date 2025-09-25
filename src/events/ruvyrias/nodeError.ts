@@ -1,9 +1,9 @@
+import { CustomClient } from '../../structures/CustomClient';
+import { BaseEvent } from '../../structures/Event';
 import { Node } from 'ruvyrias';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseEvent } from '../../structures/BaseEvent';
 
 export default class NodeError extends BaseEvent {
-    public execute(client: BaseClient, node: Node, error: Error): void {
-        console.log(`[+] Node ${node.options.name} errored: ${error.message}.`)
+    public execute(client: CustomClient, node: Node, error: Error): void {
+        console.log(`[+] Node ${node.options.name} errored: ${error.message}.`);
     }
 }

@@ -1,10 +1,10 @@
+import { CustomClient } from '../../structures/CustomClient';
+import { BaseEvent } from '../../structures/Event';
 import { TextChannel, Colors } from 'discord.js';
 import { Player, Track } from 'ruvyrias';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseEvent } from '../../structures/BaseEvent';
 
 export default class TrackStart extends BaseEvent {
-    public execute(client: BaseClient, player: Player, track: Track): void {
+    public execute(client: CustomClient, player: Player, track: Track): void {
         const timestamp = track.info.length / 1000;
         const hours = Math.floor(timestamp / 60 / 60);
         const minutes = Math.floor(timestamp / 60) - (hours * 60);
@@ -12,7 +12,7 @@ export default class TrackStart extends BaseEvent {
 
         const formatted = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
 
-        const channel = client.channels.cache.get(player.textChannel!) as TextChannel;
+        const channel = client.channels.cache.get(player.textChannelId as string) as TextChannel;
         channel.send({
             embeds:
                 [{

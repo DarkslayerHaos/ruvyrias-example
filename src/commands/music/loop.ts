@@ -1,29 +1,56 @@
-import { Message, Colors } from 'discord.js';
-import { BaseClient } from '../../structures/BaseClient';
-import { BaseCommand } from '../../structures/BaseCommand';
-import { Player } from 'ruvyrias';
+import { Message, Colors, ChatInputCommandInteraction } from 'discord.js';
+import { CustomClient } from '../../structures/CustomClient';
+import { Command } from '../../structures/Command';
+import { LoopType, Player } from 'ruvyrias';
 
-export default class Loop extends BaseCommand {
+export default class Loop extends Command {
     private constructor() {
         super({
             name: 'loop',
-            aliases: []
+            description: '🎵 | Turns on or off the music or current playback queue loop.',
+            category: 'music',
+            options: [
+                {
+                    name: 'mode',
+                    description: '🔌 | Select which mode you want to use.',
+                    type: 3,
+                    required: true,
+                    choices: [
+                        { name: 'Disable', value: LoopType.Off },
+                        { name: 'Current Track', value: LoopType.Track },
+                        { name: 'Queue', value: LoopType.Queue }
+                    ]
+                }
+            ],
+            permissions: {
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['SendMessages', 'ViewChannel'],
+            }
         });
     }
 
-    public async execute(client: BaseClient, message: Message, player: Player, args: string[]): Promise<Message | void> {
-        if (!this.checkPlayerState(message, player)) return;
-        if (!message.guild?.members.me?.permissions.has('SendMessages')) return;
-        if (!message.guild?.members.me?.permissionsIn(message.channelId).has('SendMessages')) return;
+    public async execute(client: CustomClient, interaction: ChatInputCommandInteraction, player: Player): Promise<Message | void> {
+        if (!await this.checkPermissions(interaction)) return;
+        if (!await this.checkPlayerState(interaction, player)) return;
 
-        if (args.length && /queue/i.test(args[0])) {
-            player.setLoop('QUEUE');
+        const mode = interaction.options.getString('mode', true) as LoopType;
+        player.setLoop(mode);
 
-            return message.reply({ embeds: [{ description: `${player.loop.replace('QUEUE', 'Enabled')} queue loop.`, color: Colors.Green }] });
+        let desc: string;
+        switch (mode) {
+            case LoopType.Off:
+                desc = '🔴 Loop disabled.';
+                break;
+            case LoopType.Track:
+                desc = '🔁 Track loop enabled.';
+                break;
+            case LoopType.Queue:
+                desc = '🔂 Queue loop enabled.';
+                break;
+            default:
+                desc = '❓ Unknown loop mode.';
         }
 
-        player.setLoop('TRACK');
-
-        message.reply({ embeds: [{ description: `${player.loop.replace('TRACK', 'Enabled')} track loop.`, color: Colors.Green }] });
+        return await interaction.editReply({ embeds: [{ description: desc, color: Colors.Green }] });
     }
 }

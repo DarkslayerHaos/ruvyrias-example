@@ -1,3 +1,8 @@
+# 🎧 Music Bot — Example with Ruvyrias
+
+> This example is built entirely with **Slash Commands**, using an **individual event handler system** for both [Ruvyrias](https://www.npmjs.com/package/ruvyrias) and [discord.js]. It also includes a **command handler** to keep everything modular and clean.  
+> Powered by the latest version of **Ruvyrias**, the Lavalink library which this bot is designed to demonstrate.
+
 ## 🚀 Setting Up The Environment
 
 * It is necessary to have [NodeJS](https://nodejs.org/en/download/current/) version 16.9x or higher installed.
@@ -5,14 +10,15 @@
 * Inside the `src/settings` folder, rename the `.env.example` file to `.env` and insert your bot's **token** into it.
 
 ```yaml
-TOKEN=bot-token
-PREFIX=.
+CLIENT_TOKEN=bot-token
+CLIENT_ID=bot-id
+GUILD_ID=guild-id
 ```
 
 ## 💡 Configure Lavalink
 * To tailor the bot to your specific needs, you must adjust the Lavalink server settings. Locate the configuration file in the following directory:
 ```
-├── 📁 music-bot
+├── 📁 ruvyrias-example
 |  └── 📁 src
 |     └── 📁 settings
 |        └── 📄 config.ts
@@ -23,7 +29,7 @@ PREFIX=.
     name: 'main',
     host: 'localhost',
     port: 80,
-    password: 'youshallnotpass',
+    auth: 'youshallnotpass',
     secure: false,
 }
 ```
@@ -36,14 +42,12 @@ PREFIX=.
 
 | Command                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
-| `.play <link or song-name>`      | Play a song by providing a link or the name of the song.              |
-| `.pause`                        | Pause the currently playing track.                                    |
-| `.resume`                       | Resume playback.                                                      |
-| `.skip`                         | Skip to the next track in the queue.                                  |
-| `.stop`                         | Stop the music and clear the queue.                                   |
-| `.queue`                        | Display the current music queue.                                      |
-| `.playprevious`                 | Play the previously played track.                                     |
-| `.loop`                         | Toggle loop mode for the entire queue.                                |
-| `.bassboost`                    | Enhance the bass of the music.                                        |
-| `.save`                         | Save the currently playing track and send the link in DM to the user. |
-| `.volume <1-100>`               | Adjust the volume of the music.                                       |
+| `/play <link or song-name>`     | Play a song by providing a link or the name of the song.              |
+| `/pause`                        | Pause the currently playing track.                                    |
+| `/resume`                       | Resume playback.                                                      |
+| `/skip`                         | Skip to the next track in the queue.                                  |
+| `/stop`                         | Stop the music and clear the queue.                                   |
+| `/queue`                        | Display the current music queue.                                      |
+| `/playprevious`                 | Play the previously played track.                                     |
+| `/loop`                         | Toggle loop mode for the entire queue.                                |
+| `/volume <1-1000>`              | Adjust the volume of the music.                                       |
